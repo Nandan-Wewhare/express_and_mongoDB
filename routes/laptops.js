@@ -1,13 +1,15 @@
 const express = require('express')
 const router = express.Router()
+const path = require('path')
 const onelaptop = require('../models/laptopdata')
+
 
 router.get('/',async (req,res)=>{
     try{
         const laptops = await onelaptop.find()
-        res.json(laptops)
+        res.sendFile(path.join(__dirname + '/../views/example.html'))
     }catch(error){
-        res.send('Error: '+ error)
+        res.send(error)
     }
 })
 
@@ -17,7 +19,7 @@ router.get('/:id',async (req,res)=>{
         res.json(laptops)
         
     }catch(err){
-        res.send('Error:' + err)
+        res.send(err)
     }
 })
 
@@ -32,7 +34,7 @@ router.post('/',async(req,res)=>{
         const l1 = await newlaptop.save()
         res.json(l1)
     }catch(err){
-        res.send('Error:' + err)
+        res.send( err)
     }
 })
 
